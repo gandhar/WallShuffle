@@ -23,6 +23,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.GridView;
+
  
 public class MainActivity extends Activity {
      
@@ -33,6 +35,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_main);
+    
         ArrayList<String> wallpapers;
 
         
@@ -67,10 +70,12 @@ public class MainActivity extends Activity {
         SharedPreferences.Editor edit = prefs.edit();
         edit.putStringSet("SAVEDATA", new HashSet<String>(wallpapers));
         edit.commit();
-      
+        
         ArrayList<String> retrieved = new ArrayList<String>(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getStringSet("SAVEDATA", new HashSet<String>()));
         Log.d(TAG,retrieved.toString());
         
+        GridView gv = (GridView) findViewById(R.id.gridView1);
+        gv.setAdapter(new SampleGridViewAdapter(this));
         
         
         Button button = (Button) findViewById(R.id.button1);
@@ -126,5 +131,4 @@ public class MainActivity extends Activity {
 	    }
 	    return false;
 	}
-        	
 }
