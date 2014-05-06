@@ -98,10 +98,12 @@ public class MainActivity extends Activity {
 		        if(isMyServiceRunning()){
 		        	alarm.cancel(pintent);
 		        	button.setText("Start Service");
+		        	Log.d(TAG,"service stopped");
 		        }
 		        else{
 		        	alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 10*1000, pintent); 
 		        	button.setText("Stop Service");
+		        	Log.d(TAG,"service started");
 		        }
 		        
 			}
@@ -125,10 +127,12 @@ public class MainActivity extends Activity {
 	private boolean isMyServiceRunning() {
 	    ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-	        if (WallChangerService.class.getName().equals(service.service.getClassName())) {
-	            return true;
+	        if (WallChangerService.class.getName().equals(service.service.getClassName())){
+	        	Log.d(TAG, "service is running");
+	        	return true;
 	        }
 	    }
-	    return false;
+	    Log.d(TAG, "service is not rnning");
+		return false;
 	}
 }
