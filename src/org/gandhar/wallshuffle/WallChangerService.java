@@ -1,6 +1,5 @@
 package org.gandhar.wallshuffle;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.util.DisplayMetrics;
 import android.util.Log;
 
 public class WallChangerService extends Service {
@@ -68,7 +66,6 @@ private Bitmap decodeFile(String s) throws IOException{
     FileInputStream fis = new FileInputStream(s);
     BitmapFactory.decodeStream(fis, null, o);
     fis.close();
-    DisplayMetrics metrics = getApplicationContext().getResources().getDisplayMetrics();
     
     int IMAGE_MAX_SIZE = Math.max(WallpaperManager.getInstance(getApplicationContext()).getDesiredMinimumHeight(),WallpaperManager.getInstance(getApplicationContext()).getDesiredMinimumHeight());
     int scale = 1;

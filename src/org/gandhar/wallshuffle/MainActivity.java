@@ -20,6 +20,9 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -101,7 +104,9 @@ public class MainActivity extends Activity {
 		        	Log.d(TAG,"service stopped");
 		        }
 		        else{
-		        	alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 2*60*1000, pintent); 
+		        	int shuffle_time = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("shuffle_duration", null));
+		        	Log.d(TAG, ""+shuffle_time);
+		        	alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), shuffle_time*60*1000, pintent); 
 		        	button.setText("Stop Service");
 		        	Log.d(TAG,"service started");
 		        }
@@ -135,4 +140,28 @@ public class MainActivity extends Activity {
 	    Log.d(TAG, "service is not rnning");
 		return false;
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.main_menu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.settings:
+	        	
+	        	Intent intent = new Intent(this, SettingsActivity.class);
+	            startActivity(intent);
+	            
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
+	
 }

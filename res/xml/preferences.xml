@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:key="shuffle_duration"
+        android:title="Shuffle duration"
+        android:dialogTitle="Select a time"
+        android:entries="@array/shuffle_duration"
+        android:entryValues="@array/shuffle_duration_values"
+        android:defaultValue="120" />
+</PreferenceScreen>
