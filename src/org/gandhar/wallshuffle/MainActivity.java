@@ -101,7 +101,7 @@ public class MainActivity extends Activity {
 		        	Log.d(TAG,"service stopped");
 		        }
 		        else{
-		        	alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 10*1000, pintent); 
+		        	alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 2*60*1000, pintent); 
 		        	button.setText("Stop Service");
 		        	Log.d(TAG,"service started");
 		        }
