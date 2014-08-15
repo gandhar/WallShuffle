@@ -1,4 +1,0 @@
-WallShuffle
-===========
-
-android wallpaper shuffler

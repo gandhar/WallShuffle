@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/play"
+        android:title="Play"
+        android:icon="@drawable/ic_action_play"
+        android:showAsAction="always"/>
+    <item android:id="@+id/time"
+        android:title="Time"
+        android:icon="@drawable/ic_action_time"
+        android:showAsAction="always">
+        <menu>
+            <item android:id="@+id/t900"
+                android:title="15 Minutes"
+                android:checkable="true"
+                android:onClick="changeTime"/>
+            <item android:id="@+id/t1800"
+                android:title="30 Minutes"
+                android:checkable="true"
+                android:onClick="changeTime"/>
+            <item android:id="@+id/t3600"
+                android:title="1 hour"
+                android:checkable="true"
+                android:onClick="changeTime"/>
+            <item android:id="@+id/t7200"
+                android:title="2 hours"
+                android:checkable="true"
+                android:onClick="changeTime"/>
+            <item android:id="@+id/t14400"
+                android:title="4 hours"
+                android:checkable="true"
+                android:onClick="changeTime"/>
+            <item android:id="@+id/t28800"
+                android:title="8 hours"
+                android:checkable="true"
+                android:onClick="changeTime"/>
+            <item android:id="@+id/t43200"
+                android:title="12 hours"
+                android:checkable="true"
+                android:onClick="changeTime"/>
+            <item android:id="@+id/t186400"
+                android:title="1 day"
+                android:checkable="true"
+                android:onClick="changeTime"/>
+            <item android:id="@+id/t172800"
+                android:title="2 days"
+                android:checkable="true"
+                android:onClick="changeTime"/>
+        </menu>
+    </item>
+</menu>
