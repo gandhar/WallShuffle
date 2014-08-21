@@ -1,6 +1,5 @@
 package org.gandhar.wallshuffle;
 
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -50,10 +49,19 @@ public class MainActivity extends Activity {
         
         Log.d(TAG,"current wallpapers"+wallpapers.size());
         Log.d(TAG, "started");
-        
-        if (Intent.ACTION_SEND_MULTIPLE.equals(getIntent().getAction()) && getIntent().hasExtra(Intent.EXTRA_STREAM)) {
+
+        if (Intent.ACTION_SEND.equals(getIntent().getAction()) && getIntent().hasExtra(Intent.EXTRA_STREAM)) {
+            Log.d(TAG,"single image recieved");
+            String sourcepath =getPath((Uri) getIntent().getParcelableExtra(Intent.EXTRA_STREAM));
+
+            if(!wallpapers.contains(sourcepath)) {
+                wallpapers.add(sourcepath);
+            }
+        }
+
+        else if (Intent.ACTION_SEND_MULTIPLE.equals(getIntent().getAction()) && getIntent().hasExtra(Intent.EXTRA_STREAM)) {
+            Log.d(TAG,"multiple images recieved");
     	    ArrayList<Parcelable> list = getIntent().getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-    	    
     	    for (Parcelable parcel : list) {
     	    	Uri uri = (Uri) parcel;
     	    	String sourcepath=getPath(uri);
@@ -63,6 +71,7 @@ public class MainActivity extends Activity {
     	    		wallpapers.add(sourcepath);
     	    }       
         }
+
         
         Log.d(TAG,"current wallpapers"+wallpapers.size());
         
@@ -78,8 +87,7 @@ public class MainActivity extends Activity {
         gv.setAdapter(new SampleGridViewAdapter(this));
        
   	}
-    
-    
+
 	public  String getPath(Uri selectedImage) {
     	String[] filePathColumn = { MediaStore.Images.Media.DATA };
     	Cursor cursor = getContentResolver().query(selectedImage,filePathColumn, null, null, null);
@@ -249,6 +257,11 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
 	    switch (item.getItemId()) {
+            case R.id.shuffle:
+                stopAlarm();
+                startAlarm();
+                return true;
+
             case R.id.play:
                 MenuItem playmenuitem = menu.findItem(R.id.play);
 
