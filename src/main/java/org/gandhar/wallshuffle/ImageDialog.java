@@ -6,13 +6,14 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -40,7 +41,6 @@ public class ImageDialog extends DialogFragment {
         }
     }
 
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -59,9 +59,10 @@ public class ImageDialog extends DialogFragment {
         setWall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG,"set wallpaper");
-                Util.setWallpaper(sourcepath,getActivity());
-                Toast.makeText(getActivity(), "wallpaper changed", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "set wallpaper");
+                Intent mServiceIntent = new Intent(getActivity(), WallpaperSetter.class);
+                mServiceIntent.setData(Uri.parse(sourcepath));
+                getActivity().startService(mServiceIntent);
             }
         });
 
@@ -75,7 +76,7 @@ public class ImageDialog extends DialogFragment {
                 if(Util.isMyServiceRunning(getActivity())){
                     Util.startAlarm(getActivity());
                 }
-                Toast.makeText(getActivity(), "removed", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Removed", Toast.LENGTH_LONG).show();
                 dismiss();
             }
         });
