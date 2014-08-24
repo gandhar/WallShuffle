@@ -20,17 +20,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.RadioButton;
 
 public class MainActivity extends Activity implements ImageDialog.ImageDialogListener{
 
     public static String TAG = "wallshuffle";
     public static String POSITIONINARRAY = "sourcepath";
+    public static String RADIO_BUTTON = "radiobutton";
     private Menu menu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_main);
+
 
         final ArrayList<String> wallpapers;
         
@@ -117,7 +120,9 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getInt("tshuffle_duration", R.id.t7200)).setChecked(true);
+
+        menu.findItem(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getInt(RADIO_BUTTON, R.id.t7200)).setChecked(true);
+
         MenuItem playmenuitem = menu.findItem(R.id.play);
         if(Util.isMyServiceRunning(getBaseContext())){
             playmenuitem.setIcon(R.drawable.ic_action_pause);
@@ -136,11 +141,13 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         SharedPreferences.Editor edit = prefs.edit();
 
+
         switch (item.getItemId()) {
             case R.id.test:
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
                 edit.putInt("shuffle_duration",60);
+                edit.putInt(RADIO_BUTTON,item.getItemId());
                 edit.apply();
                 if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
@@ -150,6 +157,7 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
                 edit.putInt("shuffle_duration", 900);
+                edit.putInt(RADIO_BUTTON,item.getItemId());
                 edit.apply();
                 if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
@@ -158,6 +166,7 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
                 edit.putInt("shuffle_duration", 1800);
+                edit.putInt(RADIO_BUTTON,item.getItemId());
                 edit.apply();
                 if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
@@ -166,6 +175,7 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
                 edit.putInt("shuffle_duration", 3600);
+                edit.putInt(RADIO_BUTTON,item.getItemId());
                 edit.apply();
                 if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
@@ -174,6 +184,7 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
                 edit.putInt("shuffle_duration", 7200);
+                edit.putInt(RADIO_BUTTON,item.getItemId());
                 edit.apply();
                 if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
@@ -182,6 +193,7 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
                 edit.putInt("shuffle_duration", 14400);
+                edit.putInt(RADIO_BUTTON,item.getItemId());
                 edit.apply();
                 if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
@@ -190,6 +202,7 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
                 edit.putInt("shuffle_duration", 28800);
+                edit.putInt(RADIO_BUTTON,item.getItemId());
                 edit.apply();
                 if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
@@ -198,6 +211,7 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
                 edit.putInt("shuffle_duration", 43200);
+                edit.putInt(RADIO_BUTTON,item.getItemId());
                 edit.apply();
                 if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
@@ -206,6 +220,7 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
                 edit.putInt("shuffle_duration", 186400);
+                edit.putInt(RADIO_BUTTON,item.getItemId());
                 edit.apply();
                 if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
@@ -214,6 +229,7 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
                 edit.putInt("shuffle_duration", 172800);
+                edit.putInt(RADIO_BUTTON,item.getItemId());
                 edit.apply();
                 if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
@@ -245,7 +261,7 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-    
+
     @Override
     public void refreshTheThing(){
         Log.d(TAG,"refresh");
