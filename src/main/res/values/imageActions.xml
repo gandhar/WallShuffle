@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="imageActions">
+        <item>Set Wallpaper</item>
+        <item>Remove from shuffle list</item>
+    </string-array>
+</resources>

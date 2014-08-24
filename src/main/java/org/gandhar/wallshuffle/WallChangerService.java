@@ -37,22 +37,11 @@ public int _onStartCommand(Intent intent, int flags, int startId) {
 		Log.d(TAG, "change wallpaper");
 		
 		WallpaperManager myWallpaperManager = WallpaperManager.getInstance(getApplicationContext());
-		ArrayList<String> retrieved = new ArrayList<String>(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getStringSet("SAVEDATA", new HashSet<String>()));
+		ArrayList<String> wallpapers = new ArrayList<String>(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getStringSet("SAVEDATA", new HashSet<String>()));
 		
 		Random r = new Random();
-    	int shuffle = r.nextInt(retrieved.size()-1);
-
-    	Log.d(TAG, ""+shuffle);
-		
-		try {
-			Bitmap bm = decodeFile(retrieved.get(shuffle));
-			myWallpaperManager.setBitmap(bm);
-			bm.recycle();
-			bm=null;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	int shuffle = r.nextInt(wallpapers.size()-1);
+        Util.setWallpaper(wallpapers.get(shuffle),getBaseContext());
 		return Service.START_STICKY;
         
 	}
