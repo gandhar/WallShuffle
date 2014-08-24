@@ -29,7 +29,7 @@ public class Util {
         try {
             myWallpaperManager.setBitmap(bm);
         } catch (IOException ioe) {
-            Log.d(TAG,"errosr" + ioe.getMessage());
+            Log.d(TAG,"errors" + ioe.getMessage());
         }
         bm.recycle();
         bm=null;
@@ -71,6 +71,10 @@ public class Util {
         PendingIntent pintent = PendingIntent.getService(context, PENDING_INTENT_ID, intent, 0);
         AlarmManager alarm = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         alarm.cancel(pintent);
+    }
+
+    public static boolean isMyServiceRunning(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("PENDING_INTENT_STATUS",false);
     }
 
 }

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -71,7 +72,11 @@ public class ImageDialog extends DialogFragment {
                 Log.d(TAG,"set wallpaper");
                 Util.deleteEntry(position, getActivity());
                 mListener.refreshTheThing();
+                if(Util.isMyServiceRunning(getActivity())){
+                    Util.startAlarm(getActivity());
+                }
                 Toast.makeText(getActivity(), "removed", Toast.LENGTH_LONG).show();
+                dismiss();
             }
         });
 

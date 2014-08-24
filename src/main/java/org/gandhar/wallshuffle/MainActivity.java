@@ -8,8 +8,6 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -21,17 +19,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
-
 
 public class MainActivity extends Activity implements ImageDialog.ImageDialogListener{
-     
-     
+
     public static String TAG = "wallshuffle";
     public static String POSITIONINARRAY = "sourcepath";
-    public static int PENDING_INTENT_ID = 1569;
     private Menu menu;
 
     @Override
@@ -85,6 +78,7 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
 
         GridView gv = (GridView) findViewById(R.id.gridView1);
         gv.setAdapter(new SampleGridViewAdapter(this));
+
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -112,11 +106,6 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
     	
     }
 
-	private boolean isMyServiceRunning() {
-        return PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getBoolean("PENDING_INTENT_STATUS",false);
-    }
-
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
@@ -130,7 +119,7 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.findItem(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getInt("tshuffle_duration", R.id.t7200)).setChecked(true);
         MenuItem playmenuitem = menu.findItem(R.id.play);
-        if(isMyServiceRunning()){
+        if(Util.isMyServiceRunning(getBaseContext())){
             playmenuitem.setIcon(R.drawable.ic_action_pause);
             playmenuitem.setTitle("Pause");
         }
@@ -142,115 +131,94 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
         return true;
     }
 
-
-    public boolean changeTime(MenuItem item){
-
+    @Override
+	public boolean onOptionsItemSelected(MenuItem item) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         SharedPreferences.Editor edit = prefs.edit();
 
         switch (item.getItemId()) {
-            case R.id.t900:
-                edit.putInt("shuffle_duration", 900);
-                edit.putInt("tshuffle_duration", R.id.t900);
-                edit.commit();
-                unCheckAll();
-                if (isMyServiceRunning())
+            case R.id.test:
+                if (item.isChecked()) item.setChecked(false);
+                else item.setChecked(true);
+                edit.putInt("shuffle_duration",60);
+                edit.apply();
+                if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
-                menu.findItem(R.id.t900).setChecked(true);
+                return true;
+
+            case R.id.t900:
+                if (item.isChecked()) item.setChecked(false);
+                else item.setChecked(true);
+                edit.putInt("shuffle_duration", 900);
+                edit.apply();
+                if (Util.isMyServiceRunning(getBaseContext()))
+                    Util.startAlarm(getBaseContext());
                 return true;
             case R.id.t1800:
+                if (item.isChecked()) item.setChecked(false);
+                else item.setChecked(true);
                 edit.putInt("shuffle_duration", 1800);
-                edit.putInt("tshuffle_duration", R.id.t1800);
-                edit.commit();
-                unCheckAll();
-                if (isMyServiceRunning())
+                edit.apply();
+                if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
-                menu.findItem(R.id.t1800).setChecked(true);
                 return true;
             case R.id.t3600:
+                if (item.isChecked()) item.setChecked(false);
+                else item.setChecked(true);
                 edit.putInt("shuffle_duration", 3600);
-                edit.putInt("tshuffle_duration", R.id.t3600);
-                edit.commit();
-                unCheckAll();
-                if (isMyServiceRunning())
+                edit.apply();
+                if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
-                menu.findItem(R.id.t3600).setChecked(true);
                 return true;
             case R.id.t7200:
+                if (item.isChecked()) item.setChecked(false);
+                else item.setChecked(true);
                 edit.putInt("shuffle_duration", 7200);
-                edit.putInt("tshuffle_duration", R.id.t7200);
-                edit.commit();
-                unCheckAll();
-                if (isMyServiceRunning())
+                edit.apply();
+                if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
-                menu.findItem(R.id.t7200).setChecked(true);
                 return true;
             case R.id.t14400:
+                if (item.isChecked()) item.setChecked(false);
+                else item.setChecked(true);
                 edit.putInt("shuffle_duration", 14400);
-                edit.putInt("tshuffle_duration", R.id.t14400);
-                edit.commit();
-                unCheckAll();
-                if (isMyServiceRunning())
+                edit.apply();
+                if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
-                menu.findItem(R.id.t14400).setChecked(true);
                 return true;
             case R.id.t28800:
+                if (item.isChecked()) item.setChecked(false);
+                else item.setChecked(true);
                 edit.putInt("shuffle_duration", 28800);
-                edit.putInt("tshuffle_duration", R.id.t28800);
-                edit.commit();
-                unCheckAll();
-                if (isMyServiceRunning())
+                edit.apply();
+                if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
-                menu.findItem(R.id.t28800).setChecked(true);
                 return true;
             case R.id.t43200:
+                if (item.isChecked()) item.setChecked(false);
+                else item.setChecked(true);
                 edit.putInt("shuffle_duration", 43200);
-                edit.putInt("tshuffle_duration", R.id.t43200);
-                edit.commit();
-                unCheckAll();
-                if (isMyServiceRunning())
+                edit.apply();
+                if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
-                menu.findItem(R.id.t43200).setChecked(true);
                 return true;
             case R.id.t186400:
+                if (item.isChecked()) item.setChecked(false);
+                else item.setChecked(true);
                 edit.putInt("shuffle_duration", 186400);
-                edit.putInt("tshuffle_duration", R.id.t186400);
-                edit.commit();
-                unCheckAll();
-                if (isMyServiceRunning())
+                edit.apply();
+                if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
-                menu.findItem(R.id.t186400).setChecked(true);
                 return true;
             case R.id.t172800:
+                if (item.isChecked()) item.setChecked(false);
+                else item.setChecked(true);
                 edit.putInt("shuffle_duration", 172800);
-                edit.putInt("tshuffle_duration", R.id.t172800);
-                edit.commit();
-                unCheckAll();
-                if (isMyServiceRunning())
+                edit.apply();
+                if (Util.isMyServiceRunning(getBaseContext()))
                     Util.startAlarm(getBaseContext());
-                menu.findItem(R.id.t172800).setChecked(true);
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
-    public void unCheckAll(){
-        menu.findItem(R.id.t900).setChecked(false);
-        menu.findItem(R.id.t1800).setChecked(false);
-        menu.findItem(R.id.t14400).setChecked(false);
-        menu.findItem(R.id.t172800).setChecked(false);
-        menu.findItem(R.id.t186400).setChecked(false);
-        menu.findItem(R.id.t28800).setChecked(false);
-        menu.findItem(R.id.t3600).setChecked(false);
-        menu.findItem(R.id.t43200).setChecked(false);
-        menu.findItem(R.id.t7200).setChecked(false);
-    }
-
-    @Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle item selection
-	    switch (item.getItemId()) {
             case R.id.shuffle:
                 Util.stopAlarm(getBaseContext());
                 Util.startAlarm(getBaseContext());
@@ -258,34 +226,31 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
 
             case R.id.play:
                 MenuItem playmenuitem = menu.findItem(R.id.play);
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                SharedPreferences.Editor edit = prefs.edit();
 
-                if(isMyServiceRunning()){
+                if(Util.isMyServiceRunning(getBaseContext())){
                     Util.stopAlarm(getBaseContext());
                     playmenuitem.setIcon(R.drawable.ic_action_play);
                     Log.d(TAG,"service stopped");
                     edit.putBoolean("PENDING_INTENT_STATUS",false);
                 }
-
                 else{
                     Util.startAlarm(getBaseContext());
                     playmenuitem.setIcon(R.drawable.ic_action_pause);
                     Log.d(TAG,"service started");
                     edit.putBoolean("PENDING_INTENT_STATUS",true);
-
                 }
                 edit.apply();
                 return true;
-
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-
+    
     @Override
     public void refreshTheThing(){
         Log.d(TAG,"refresh");
-
+        GridView gv = (GridView) findViewById(R.id.gridView1);
+        gv.invalidate();
+        gv.setAdapter(new SampleGridViewAdapter(this));
     }
 }

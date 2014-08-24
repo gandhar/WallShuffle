@@ -8,8 +8,8 @@
         android:id="@+id/imageOptions"
         android:layout_weight="0.55"
         android:src="@drawable/ic_launcher"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:scaleType="center"
         android:background="#303030"
         android:contentDescription="@string/app_name" />
