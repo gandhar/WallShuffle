@@ -15,9 +15,8 @@ public class WallpaperSetter extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent workIntent) {
-        // Gets data from the incoming Intent
-        String dataString = workIntent.getDataString();
-        Util.setWallpaper(dataString,getBaseContext());
+        int position = workIntent.getIntExtra("POSITION",0);
+        Util.setWallpaper(position,getBaseContext());
         Log.d(TAG, "wallpaper set");
         Toast.makeText(getBaseContext(),"Wallpaper Changed",Toast.LENGTH_LONG).show();
     }

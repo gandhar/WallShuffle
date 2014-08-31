@@ -41,7 +41,7 @@ public int _onStartCommand(Intent intent, int flags, int startId) {
 		
 		Random r = new Random();
     	int shuffle = r.nextInt(wallpapers.size()-1);
-        Util.setWallpaper(wallpapers.get(shuffle),getBaseContext());
+        Util.setWallpaper(shuffle,getBaseContext());
 		return Service.START_STICKY;
         
 	}

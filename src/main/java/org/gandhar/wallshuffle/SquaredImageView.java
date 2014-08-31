@@ -1,6 +1,10 @@
 package org.gandhar.wallshuffle;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -14,8 +18,9 @@ final class SquaredImageView extends ImageView {
     super(context, attrs);
   }
 
-  @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     setMeasuredDimension(getMeasuredWidth(), getMeasuredWidth());
-  }
+    }
+
 }

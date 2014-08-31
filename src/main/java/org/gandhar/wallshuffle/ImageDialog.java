@@ -8,7 +8,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -61,7 +60,7 @@ public class ImageDialog extends DialogFragment {
             public void onClick(View view) {
                 Log.d(TAG, "set wallpaper");
                 Intent mServiceIntent = new Intent(getActivity(), WallpaperSetter.class);
-                mServiceIntent.setData(Uri.parse(sourcepath));
+                mServiceIntent.putExtra("POSITION",position);
                 getActivity().startService(mServiceIntent);
             }
         });
@@ -72,10 +71,10 @@ public class ImageDialog extends DialogFragment {
             public void onClick(View view) {
                 Log.d(TAG,"set wallpaper");
                 Util.deleteEntry(position, getActivity());
-                mListener.refreshTheThing();
-                if(Util.isMyServiceRunning(getActivity())){
+                if(Util.isMyServiceRunning(getActivity())&&Util.isCurrent(position, getActivity())){
                     Util.startAlarm(getActivity());
                 }
+                mListener.refreshTheThing();
                 Toast.makeText(getActivity(), "Removed", Toast.LENGTH_LONG).show();
                 dismiss();
             }
@@ -83,7 +82,5 @@ public class ImageDialog extends DialogFragment {
 
         return builder.create();
     }
-
-
 
 }

@@ -23,11 +23,21 @@ public class Util {
     public static int PENDING_INTENT_ID = 1569;
 
 
-    public static void setWallpaper(String path,Context context){
+    public static void setWallpaper(int position,Context context){
+
+        final ArrayList<String> wallpapers;
+        wallpapers = new ArrayList<String>(PreferenceManager.getDefaultSharedPreferences(context).getStringSet("SAVEDATA", new HashSet<String>()));
+        String path = wallpapers.get(position);
+
         WallpaperManager myWallpaperManager = WallpaperManager.getInstance(context);
         Bitmap bm= BitmapFactory.decodeFile(path);
         try {
             myWallpaperManager.setBitmap(bm);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putInt("POSITION", position);
+            edit.apply();
+
         } catch (IOException ioe) {
             Log.d(TAG,"errors" + ioe.getMessage());
         }
@@ -75,6 +85,11 @@ public class Util {
 
     public static boolean isMyServiceRunning(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("PENDING_INTENT_STATUS",false);
+    }
+
+    public static boolean isCurrent(int position, Context context){
+        Log.d(TAG,"you removed the current wallpaper");
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt("POSITION", 0)==position;
     }
 
 }

@@ -8,6 +8,8 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -19,7 +21,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 public class MainActivity extends Activity implements ImageDialog.ImageDialogListener{
 
@@ -84,8 +88,8 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Log.d(TAG,"image clicked"+position);
-                Log.d(TAG,""+wallpapers.get(position));
+                Log.d(TAG, "image clicked" + position);
+                Log.d(TAG, "" + wallpapers.get(position));
                 Bundle bundle = new Bundle();
                 bundle.putInt(POSITIONINARRAY, position);
                 DialogFragment newFragment = new ImageDialog();
@@ -94,7 +98,7 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
 
             }
         });
-       
+
   	}
 
 	public  String getFilePath(Uri selectedImage) {
@@ -105,7 +109,6 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
     	String picturePath = cursor.getString(columnIndex);
     	cursor.close();
     	return picturePath;
-    	
     }
 
 	@Override
@@ -131,7 +134,6 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
             playmenuitem.setIcon(R.drawable.ic_action_play);
             playmenuitem.setTitle("Play");
         }
-
         return true;
     }
 

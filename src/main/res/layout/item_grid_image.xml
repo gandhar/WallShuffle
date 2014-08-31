@@ -11,5 +11,5 @@
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:clickable="true"/>
-    
+
 </FrameLayout>
