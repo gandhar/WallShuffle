@@ -6,11 +6,10 @@ import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,27 +21,22 @@ public class Util {
     public static String TAG = "wallshuffle";
     public static int PENDING_INTENT_ID = 1569;
 
-
     public static void setWallpaper(int position,Context context){
 
         final ArrayList<String> wallpapers;
         wallpapers = new ArrayList<String>(PreferenceManager.getDefaultSharedPreferences(context).getStringSet("SAVEDATA", new HashSet<String>()));
-        String path = wallpapers.get(position);
-
         WallpaperManager myWallpaperManager = WallpaperManager.getInstance(context);
-        Bitmap bm= BitmapFactory.decodeFile(path);
         try {
-            myWallpaperManager.setBitmap(bm);
+            FileInputStream fis = new FileInputStream (wallpapers.get(position));
+            myWallpaperManager.setStream(fis);
+            fis.close();
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor edit = prefs.edit();
             edit.putInt("POSITION", position);
             edit.apply();
-
         } catch (IOException ioe) {
             Log.d(TAG,"errors" + ioe.getMessage());
         }
-        bm.recycle();
-        bm=null;
     }
 
     public static void deleteEntry(int position, Context context){

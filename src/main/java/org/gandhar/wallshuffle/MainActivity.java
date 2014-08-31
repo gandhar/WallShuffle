@@ -8,8 +8,6 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -21,9 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageView;
 
 public class MainActivity extends Activity implements ImageDialog.ImageDialogListener{
 
@@ -237,7 +233,6 @@ public class MainActivity extends Activity implements ImageDialog.ImageDialogLis
                 return true;
 
             case R.id.shuffle:
-                Util.stopAlarm(getBaseContext());
                 Util.startAlarm(getBaseContext());
                 return true;
 
